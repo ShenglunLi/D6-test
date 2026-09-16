@@ -39,6 +39,10 @@
   padding: 0;
 }
 
+html {
+  background-color: var(--bg-color);
+}
+
 body {
   background-color: var(--bg-color);
   color: var(--text-main);
@@ -47,6 +51,21 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.18s ease;
+}
+
+/* JSON 完成渲染前先保留背景，避免暫存文字閃現。 */
+html.is-data-loading body {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    transition: none;
+  }
 }
 
 a {

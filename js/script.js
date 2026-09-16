@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 當頁面存在首頁元素或課程介紹頁元素時，才發送 Fetch 請求
   if (heroTitle || modulesContainer) {
-    fetch('data/website-content.json')
+    (window.websiteContentRequest || fetch('data/website-content.json'))
       .then(response => {
         if (!response.ok) {
           throw new Error('無法讀取 JSON 資料，HTTP 狀態碼: ' + response.status);
@@ -73,6 +73,22 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .catch(error => {
         console.error('資料載入失敗:', error);
+
+        if (heroTitle) {
+          const heroKicker = document.getElementById('hero-kicker');
+          const heroSubtitle = document.getElementById('hero-subtitle');
+
+          if (heroKicker) heroKicker.textContent = 'AI 協作課程';
+          heroTitle.textContent = '網站內容暫時無法載入';
+          if (heroSubtitle) {
+            heroSubtitle.textContent = '請重新整理頁面，或確認網站是透過 HTTP Server 開啟。';
+          }
+        }
+      })
+      .finally(() => {
+        window.requestAnimationFrame(() => {
+          document.documentElement.classList.remove('is-data-loading');
+        });
       });
 
     function renderContent(data) {

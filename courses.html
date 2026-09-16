@@ -4,6 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>課程介紹 - AI Web Craft | 品牌體驗與前端實作班</title>
+  <script>
+    // 在 DOM 解析完成前先開始讀取 JSON，縮短動態內容的等待時間。
+    document.documentElement.classList.add('is-data-loading');
+    window.websiteContentRequest = fetch('data/website-content.json');
+    window.websiteContentRequest.catch(() => {});
+
+    // 若外部程式或資料載入失敗，最多等待 1.5 秒便恢復頁面顯示。
+    window.setTimeout(() => {
+      document.documentElement.classList.remove('is-data-loading');
+    }, 1500);
+  </script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" href="images/favicon.svg" type="image/svg+xml">
 </head>
