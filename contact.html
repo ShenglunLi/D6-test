@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>預約諮詢 - AI Web Craft | 品牌體驗與前端實作班</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- <style>
+    :root {
+      --bg-color: #121212;
+      --card-bg: #1e1e1e;
+      --card-border: #2a2a2a;
+      --text-color: #e0e0e0;
+      --text-muted: #a0a0a0;
+      --primary-color: #8b263e;
+      --primary-hover: #a3324d;
+      --primary-light: #2c1820;
+      --accent-color: #d4af37;
+      --input-bg: #161616;
+      --input-border: #333333;
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header & Navigation */
+    header {
+      background-color: rgba(20, 17, 19, 0.9);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--card-border); 
+      transition: transform 0.3s ease-in-out; /* 新增此行 */
+    }
+
+    /* 新增：向下捲動時將 header 向上移出畫面 */
+    header.nav-hidden {
+      transform: translateY(-100%);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo span {
+      color: var(--primary-color);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #ffffff;
+    }
+
+    .nav-links a.active {
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 4px;
+    }
+
+    /* 漢堡按鈕樣式 */
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      z-index: 101;
+    }
+
+    .nav-toggle-bar {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: #ffffff;
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* 漢堡按鈕展開時變為 X 效果 */
+    .nav-toggle.is-active .nav-toggle-bar:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .nav-toggle.is-active .nav-toggle-bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle.is-active .nav-toggle-bar:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Page Header Hero */
+    .page-header {
+      padding: 80px 0 40px;
+      text-align: center;
+      background: linear-gradient(180deg, var(--primary-light) 0%, var(--bg-color) 100%);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .page-kicker {
+      display: inline-block;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-color);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .page-title {
+      font-size: 2.25rem;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .page-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* Section & Layout */
+    section {
+      padding: 70px 0;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 48px;
+    }
+
+    .form-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 40px;
+    }
+
+    .form-title {
+      font-size: 1.5rem;
+      color: #ffffff;
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 12px;
+      display: inline-block;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-color);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background-color: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(139, 38, 62, 0.2);
+    }
+
+    .btn-submit {
+      width: 100%;
+      background-color: var(--primary-color);
+      color: #ffffff;
+      padding: 14px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-hover);
+    }
+
+    /* Side Info Panel */
+    .info-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .info-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 28px;
+    }
+
+    .info-card h3 {
+      font-size: 1.2rem;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .faq-mini-list {
+      list-style: none;
+    }
+
+    .faq-mini-list li {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .faq-mini-list li:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .faq-mini-list strong {
+      display: block;
+      color: var(--accent-color);
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+
+    .faq-mini-list p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .contact-details p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .contact-details strong {
+      color: var(--text-color);
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      background-color: #0b0b0b;
+      border-top: 1px solid var(--card-border);
+    }
+
+    @media (max-width: 800px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background-color: #1e181c;
+        border-bottom: 1px solid var(--card-border);
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+      }
+
+      .nav-links.is-active {
+        max-height: 300px;
+        padding: 1rem 0;
+      }
+
+      .nav-links li {
+        width: 100%;
+        text-align: center;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 0.8rem 1.5rem;
+        width: 100%;
+      }
+
+      .nav-links a.active {
+        border-bottom: none;
+        color: var(--text-color); /* 將文字設定為主色 */
+        background-color: var(--primary-color); /* 改用主色底色，讓顏色對比更突出 */
+        font-weight: 600; /* 加粗文字強化辨識度 */
+        padding-bottom: 0.8rem;
+      }
+    }
+  </style> -->
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <div class="container">
+      <nav>
+        <a href="index.html" class="logo">
+          AI Web <span>Craft</span>
+        </a>
+        <button class="nav-toggle" aria-label="開啟導覽選單" aria-expanded="false" aria-controls="nav-menu">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="index.html">首頁</a></li>
+          <li><a href="courses.html">課程介紹</a></li>
+          <li><a href="contact.html" class="active">預約諮詢</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="container">
+      <span class="page-kicker">Get In Touch</span>
+      <h1 class="page-title">預約課程諮詢與報名</h1>
+      <p class="page-subtitle">請填寫下方表單提出您的需求，我們將在 1-2 個工作天內由專人與您聯繫。</p>
+    </div>
+  </div>
+
+  <main>
+    <section>
+      <div class="container">
+        <div class="contact-grid">
+          
+          <!-- Consultation Form -->
+          <div class="form-card">
+            <h2 class="form-title">諮詢需求表單</h2>
+            <form action="#" method="post" onsubmit="event.preventDefault(); alert('感謝您的諮詢預約！我們將盡快與您聯繫。');">
+              <div class="form-group">
+                <label for="name">姓名 / 稱呼 *</label>
+                <input type="text" id="name" name="name" required placeholder="請輸入您的姓名">
+              </div>
+
+              <div class="form-group">
+                <label for="email">電子郵件 *</label>
+                <input type="email" id="email" name="email" required placeholder="example@email.com">
+              </div>
+
+              <div class="form-group">
+                <label for="identity">您的背景身分</label>
+                <select id="identity" name="identity">
+                  <option value="beginner">沒有寫過程式的完全初學者</option>
+                  <option value="freelancer">自由工作者 / 個人品牌經營者</option>
+                  <option value="designer">設計師 / 想跨足 UI/UX 的學員</option>
+                  <option value="other">其他</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="goal">您希望打造的網站類型</label>
+                <select id="goal" name="goal">
+                  <option value="personal">個人品牌官網</option>
+                  <option value="portfolio">作品集網站</option>
+                  <option value="course">課程或活動宣傳頁</option>
+                  <option value="service">服務介紹頁</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message">您的主要疑問或補充說明</label>
+                <textarea id="message" name="message" rows="5" placeholder="例如：想了解上課前需要準備什麼工具？完全沒有經驗跟得上嗎？"></textarea>
+              </div>
+
+              <button type="submit" class="btn-submit">送出預約諮詢</button>
+            </form>
+          </div>
+
+          <!-- Side Info Panel -->
+          <div class="info-panel">
+            
+            <!-- Quick FAQ -->
+            <div class="info-card">
+              <h3>課前常見疑問</h3>
+              <ul class="faq-mini-list">
+                <li>
+                  <strong>Q: 上課需要準備高規格電腦嗎？</strong>
+                  <p>不需要，上課場地備有公用電腦，如需自備筆電，只要具備基礎上網能力、安裝 Chrome 瀏覽器與 VS Code 文字編輯器即可。</p>
+                </li>
+                <li>
+                  <strong>Q: 需要付費購買 AI 工具帳號嗎？</strong>
+                  <p>課堂練習使用免費版 AI 工具即可順利進行，不需要額外付費訂閱高級方案。</p>
+                </li>
+                <li>
+                  <strong>Q: 課程的授課形式與上課地點在哪裡？</strong>
+                  <p>本課程採實體教學，上課地點位於華梵大學新北板橋中心（詳細教室與交通指引將於開課前2週透過 Email 通知）。</p>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Contact Notice -->
+            <div class="info-card contact-details">
+              <h3>聯絡資訊補充</h3>
+              <p><strong>回覆時間：</strong>週一至週五 10:00 - 18:00</p>
+              <p><strong>諮詢信箱：</strong>support@aiwebcraft.example</p>
+              <p><strong>適合對象：</strong>無程式背景、想用 AI 打造實用網站雛形的初學者與創作者。</p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container">
+      <p>© 2026 AI Web Craft | AI 輔助品牌網站與使用者體驗設計實戰班</p>
+    </div>
+  </footer>
+  <script src="js/script.js"></script>
+</body>
+</html>
